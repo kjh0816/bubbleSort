@@ -1,5 +1,3 @@
-import sun.security.ec.point.ProjectivePoint
-
 /*
 == 프로그램 시작 ==
 숫자(띄워쓰기로 구분) : 3 0 1 8 7 2 5 4 6 9
@@ -25,32 +23,30 @@ fun main() {
 }
 
 fun bubbleSort(numbers: MutableList<Int>) {
-    var maxDepth = numbers.size - 1
-
+    val lastIndex = numbers.size - 1
     var raiseCount = 0
 
-    for (depth in maxDepth downTo 1) {
-        println("raiseCount : ${++raiseCount}")
+    var depth = lastIndex
+    while (depth >= 1) {
+        println("raiseCount : ${++raiseCount}, depth : $depth")
 
         for (i in 0 until depth) {
             println("numbers[$i] vs numbers[${i + 1}]")
 
+            if (i == depth - 1 && numbers[i] < numbers[i + 1]) {
+                // 위 조건이 depth를 1 깍고 부합되면 for문을 종료한다.
+                // for 문 밑에서 depth-- 를 한번 더 만나게 되기 때문에
+                // 결과적으로는 depth -= 2 가 된다.
+                depth--
+                break
+            }
+
             if (numbers[i] > numbers[i + 1]) {
-                numbers[i] = numbers[i + 1].also { numbers[i + 1] = numbers[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
+                numbers[i] = numbers[i + 1].also { numbers[i + 1] = numbers[i] }
             }
         }
 
-    }
-
-    println()
-}
-
-fun bubbleSortTest(numbers: MutableList<Int>){
-
-    var raiseCount = 0
-
-    for(count in (numbers.size - 1) downTo 1){
-        println("raiseCount : ${++raiseCount}")
+        depth--
     }
 }
 
