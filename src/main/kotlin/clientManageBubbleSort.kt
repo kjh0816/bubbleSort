@@ -65,11 +65,11 @@ fun main() {
 
     }
 
-    println("\n나이가 많은 순서로 정렬 - 오름차순")
+    println("\n나이가 적은 회원부터 정렬 - 오름차순")
     println("번호 / 이름/ 나이 / 성별")
     getAscendingSortByAge(members)
 
-    println("\n나이가 많은 순서로 정렬 - 내림차순")
+    println("\n나이가 많은 회원부터 정렬 - 내림차순")
     println("번호 / 이름/ 나이 / 성별")
     getDescendingSortByAge(members)
 
@@ -106,12 +106,23 @@ fun getAscendingSortByAge(ageOrder: Array<Member?>){
     // bubbleSort
     // maxDepth가 비교검사가 필요한 위치를 배열 size에서 내려가면서 찍어준다
 
-    for (depth in maxDepth downTo 1) {
+//    for (depth in maxDepth downTo 1) {
+//
+//        for (i in 0 until depth) {
+//
+//            if (ascendingArr[i]!!.age  > ascendingArr[i + 1]!!.age) {
+//                ascendingArr[i] = ascendingArr[i + 1].also { ascendingArr[i + 1] = ascendingArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
+//            }
+//        }
+//
+//    }
+        // maxIndex에서 역방향으로 검사하는 bubbleSort(오름차순)
+    for (depth in 1 until maxDepth) {
 
-        for (i in 0 until depth) {
+        for (i in depth+1 downTo 1) {
 
-            if (ascendingArr[i]!!.age  > ascendingArr[i + 1]!!.age) {
-                ascendingArr[i] = ascendingArr[i + 1].also { ascendingArr[i + 1] = ascendingArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
+            if (ascendingArr[i - 1]!!.age  > ascendingArr[i]!!.age) {
+                ascendingArr[i] = ascendingArr[i - 1].also { ascendingArr[i - 1] = ascendingArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
             }
         }
 
@@ -133,12 +144,24 @@ fun getDescendingSortByAge(ageOrder: Array<Member?>){
 
     val maxDepth:Int = descendingArr.size - 1
 
-    for (depth in maxDepth downTo 1) {
 
-        for (i in 0 until depth) {
+//    for (depth in maxDepth downTo 1) {
+//
+//        for (i in 0 until depth) {
+//
+//            if (descendingArr[i]!!.age  < descendingArr[i + 1]!!.age) {
+//                descendingArr[i] = descendingArr[i + 1].also { descendingArr[i + 1] = descendingArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
+//            }
+//        }
+//
+//    }
+    // maxIndex에서 역방향으로 검사하는 bubbleSort(내림차순)
+    for (depth in 1 until maxDepth) {
 
-            if (descendingArr[i]!!.age  < descendingArr[i + 1]!!.age) {
-                descendingArr[i] = descendingArr[i + 1].also { descendingArr[i + 1] = descendingArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
+        for (i in depth+1 until 1) {
+
+            if (descendingArr[i - 1]!!.age  < descendingArr[i]!!.age) {
+                descendingArr[i] = descendingArr[i - 1].also { descendingArr[i - 1] = descendingArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
             }
         }
 
