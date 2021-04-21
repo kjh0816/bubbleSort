@@ -3,6 +3,63 @@ import java.util.*
 fun main() {
 
 
+    /*
+입력데이터 1(나이)
+-------------
+2
+한희수
+30
+w
+김민지
+20
+m
+
+입력데이터 2(이름)
+-------------
+2
+한희수
+30
+w
+김민지
+30
+m
+
+입력데이터 3(성별)
+-------------
+2
+한희수
+30
+m
+한희수
+30
+w
+
+입력데이터 3(성별)
+-------------
+2
+한희수
+30
+m
+한희수
+30
+w
+
+입력데이터 4(번호)
+-------------
+3
+한희수
+30
+m
+김민지
+30
+m
+한희수
+30
+m
+
+*/
+
+
     // 회원관리 프로그램 만들기 + bubbleSorting으로 나이에 대한 오름차순/내림차순
 
 //    회원 수 : 2[엔터]
@@ -171,5 +228,43 @@ fun getDescendingSortByAge(ageOrder: Array<Member?>){
         for(member in descendingArr){
             println("${member!!.id} / ${member!!.name} / ${member!!.age} / ${member.getSexKo()}")
         }
+
+}
+
+
+// 나이순, 같으면 > 이름순, 같으면 > 성별순, 같으면 id순으로 출력하기 위한 boolean을 return하는 함수( ASC )
+fun isMemberBiggerThan(member1: Member, member2: Member): Boolean {
+    if (member1.age != member2.age) return member1.age > member2.age
+
+    if (member1.name != member2.name) return member1.name > member2.name
+
+    if (member1.sex != member2.sex) return member1.sex < member2.sex
+
+    return member1.id > member2.id
+}
+
+fun getAscInAllCases(ageOrder: Array<Member>){
+
+    var getAscInAllCasesArr = ageOrder.clone()
+
+    val maxDepth:Int = getAscInAllCasesArr.size - 1
+
+
+    for (depth in maxDepth downTo 1) {
+
+        for (i in 0 until depth) {
+
+            if (isMemberBiggerThan(getAscInAllCasesArr[i], getAscInAllCasesArr[i + 1])) {
+                getAscInAllCasesArr[i] = getAscInAllCasesArr[i + 1].also { getAscInAllCasesArr[i + 1] = getAscInAllCasesArr[i] } // numbers[i+1]이 더 크면, numbers[i]와 numbers[i+1]을 서로 교체
+            }
+        }
+
+    }
+
+
+
+    for(member in getAscInAllCasesArr){
+        println("${member!!.id} / ${member!!.name} / ${member!!.age} / ${member.getSexKo()}")
+    }
 
 }
